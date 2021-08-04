@@ -1,0 +1,21 @@
+kubectl describe tprov trident -n trident | grep Message: -A 3
+mkdir 21.07.0
+cd 21.07.0
+wget https://github.com/NetApp/trident/releases/download/v21.07.0/trident-installer-21.07.0.tar.gz
+tar -xf trident-installer-21.07.0.tar.gz
+cd trident-installer
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
+#Delete the namespace-scoped operator
+kubectl delete -f deploy/bundle.yaml
+#Confirm the Trident operator was removed
+kubectl get all -n trident
+#Ensure you are in the correct directory
+cd /root/21.07.0/trident-installer
+#Install the cluster-scoped operator in the **same namespace**
+kubectl create -f deploy/bundle.yaml
+kubectl get tprov -n trident
+kubectl get torc
+#Examine Trident pods in the namespace
+kubectl get pods -n trident
+#Confirm Trident has been updated to the desired version
+kubectl describe torc trident | grep Message -A 3
