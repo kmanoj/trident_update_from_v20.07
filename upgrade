@@ -6,7 +6,7 @@ tar -xf trident-installer-21.07.0.tar.gz
 cd trident-installer
 kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 
-#Delete the namespace-scoped operator
+echo ####Delete the namespace-scoped operator####
 
 kubectl delete -f deploy/bundle.yaml
 
@@ -15,24 +15,24 @@ kubectl delete -f deploy/bundle.yaml
 kubectl get all -n trident
 
 sleep 30s
-#Ensure you are in the correct directory
+echo ####Ensure you are in the correct directory####
 
 cd /root/21.07.0/trident-installer
 
-#Install the cluster-scoped operator in the **same namespace**
+echo "####Install the cluster-scoped operator in the **same namespace** ####
 
 kubectl create -f deploy/bundle.yaml
 sleep 30s
 
 kubectl get tprov -n trident
-sleep 30s
+sleep 50s
 
 kubectl get torc
 sleep 30s
 
-#Examine Trident pods in the namespace
+echo ####Examine Trident pods in the namespace####
 kubectl get pods -n trident
 sleep 30s
 
-#Confirm Trident has been updated to the desired version
+echo ####Confirm Trident has been updated to the desired version####
 kubectl describe torc trident | grep Message -A 3
