@@ -46,3 +46,12 @@ echo ####Confirm Trident has been updated to the desired version####
 echo #########################################################################
 
 kubectl describe torc trident | grep Message -A 3
+
+echo ####Copy tridentctl to /usr/bin####
+echo #########################################################################
+sh
+cp /root/21.07.0/trident-installer/tridentctl /usr/bin
+exit
+
+echo #### Trident upgrade is complete ####
+echo #########################################################################
